@@ -17,24 +17,24 @@ class App extends React.Component {
   render() {
     return (
       <Switch>
-        <Route exact path="recipesapp/" component={ Login } />
-        <Route exact path="recipesapp/foods" component={ Recipes } />
-        <Route exact path="recipesapp/drinks" component={ Recipes } />
-        <Route exact path="recipesapp/foods/:id" component={ RecipeDetails } />
-        <Route exact path="recipesapp/drinks/:id" component={ RecipeDetails } />
-        <Route exact path="recipesapp/profile" component={ Profile } />
+        <Route exact path="/recipesapp" component={ Login } />
+        <Route exact path="/recipesapp/foods" component={ Recipes } />
+        <Route exact path="/recipesapp/drinks" component={ Recipes } />
+        <Route exact path="/recipesapp/foods/:id" component={ RecipeDetails } />
+        <Route exact path="/recipesapp/drinks/:id" component={ RecipeDetails } />
+        <Route exact path="/recipesapp/profile" component={ Profile } />
         <Route
           exact
-          path="recipesapp//foods/:id/in-progress"
+          path="/recipesapp/foods/:id/in-progress"
           component={ RecipeInProgress }
         />
         <Route
           exact
-          path="recipesapp/drinks/:id/in-progress"
+          path="/recipesapp/drinks/:id/in-progress"
           component={ RecipeInProgress }
         />
-        <Route exact path="recipesapp/done-recipes" component={ DoneRecipes } />
-        <Route exact path="recipesapp/favorite-recipes" component={ FavoriteRecipes } />
+        <Route exact path="/recipesapp/done-recipes" component={ DoneRecipes } />
+        <Route exact path="/recipesapp/favorite-recipes" component={ FavoriteRecipes } />
       </Switch>
     );
   }
