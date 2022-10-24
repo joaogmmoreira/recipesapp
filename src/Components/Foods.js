@@ -118,7 +118,7 @@ class Foods extends React.Component {
         data-testid={ `${index}-recipe-card` }
         key={ element.idMeal }
       >
-        <Link to={ `/foods/${element.idMeal}` }>
+        <Link to={ `/recipesapp/foods/${element.idMeal}` }>
           <RecipeCard
             image={ element.strMealThumb }
             cardName={ element.strMeal }

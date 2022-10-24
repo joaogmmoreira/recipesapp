@@ -12,7 +12,7 @@ class Recipes extends React.Component {
 
     return (
       <div>
-        { pathname === '/foods'
+        { pathname === '/recipesapp/foods'
           ? <Foods url={ pathname } history={ history } />
           : <Drinks url={ pathname } history={ history } /> }
         <Footer />

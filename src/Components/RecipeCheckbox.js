@@ -1,48 +1,63 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import '../Style/RecipeCheckbox.css';
-// import {
-//   addRecipe,
-//   // getRecipesInProgress,
-//   removeRecipeInProgress,
-// } from '../services/recipesProgress';
+import {
+  addRecipe,
+  getRecipesInProgress,
+} from '../services/recipesProgress';
+import Loading from './Loading';
 
 class RecipeCheckbox extends React.Component {
   constructor() {
     super();
     this.state = {
+      isLoading: true,
       isChecked: false,
     };
   }
 
   componentDidMount() {
-    // this.getRecipeProgressBack();
     this.handleClassName();
+    this.getRecipeProgressBack();
   }
 
-  // getRecipeProgressBack = () => {
-  //   const { element } = this.props;
-  //   const progress = getRecipesInProgress();
+  getRecipeProgressBack = () => {
+    const { element, id, pathname, validateCheckBoxes } = this.props;
+    const path = pathname.includes('foods') ? 'meals' : 'cocktails';
+    // console.log(path);
+    const progress = getRecipesInProgress();
+    // console.log(progress);
 
-  //   const setProgress = progress.some((ingredient) => ingredient.element === element);
+    if (progress[path][id]) {
+      const setProgress = progress[path][id]
+        .some((ingredient) => element === ingredient);
 
-  //   this.setState({
-  //     isChecked: setProgress,
-  //   });
-  // }
+      this.setState({
+        isChecked: setProgress,
+      }, () => {
+        this.handleClassName();
+        this.setState({
+          isLoading: false,
+        }, () => {
+          validateCheckBoxes();
+        });
+      });
+    } else {
+      this.setState({
+        isLoading: false,
+      }, () => {
+        validateCheckBoxes();
+      });
+    }
+  }
 
-  // addOrRemoveProgress = () => {
-  //   const { element, index, id, pathname } = this.props;
-  //   const { isChecked } = this.state;
+  addOrRemoveProgress = () => {
+    const { element, id, pathname } = this.props;
+    const { isChecked } = this.state;
+    const path = pathname.includes('foods') ? 'meals' : 'cocktails';
 
-  //   if (pathname.includes('foods') && !isChecked) {
-  //     // const recipe = { meals: { [id]: [element] } };
-  //     addRecipe(element);
-  //   } else {
-  //     const recipe = { meals: { [id]: { element } } };
-  //     removeRecipeInProgress(recipe);
-  //   }
-  // }
+    addRecipe(element, id, path, isChecked);
+  }
 
   handleClassName = () => {
     const checkBox = document.querySelectorAll('.undone');
@@ -55,18 +70,21 @@ class RecipeCheckbox extends React.Component {
   }
 
   handleCheck = () => {
+    const { validateCheckBoxes } = this.props;
+
     this.setState((prevState) => ({
       isChecked: !prevState.isChecked,
-    }));
-
-    // this.addOrRemoveProgress();
+    }), () => {
+      validateCheckBoxes();
+      this.addOrRemoveProgress();
+    });
   }
 
   render() {
-    const { isChecked } = this.state;
+    const { isChecked, isLoading } = this.state;
     const { element, index } = this.props;
 
-    return (
+    return isLoading ? <Loading /> : (
       <label
         data-testid={ `${index}-ingredient-step` }
         className={ isChecked ? 'done' : 'undone' }
@@ -77,6 +95,7 @@ class RecipeCheckbox extends React.Component {
           id={ `${element}-${index}` }
           name={ element }
           checked={ isChecked }
+          className={ isChecked ? 'checked' : 'unchecked' }
           onChange={ this.handleCheck }
         />
         {element}
@@ -86,8 +105,11 @@ class RecipeCheckbox extends React.Component {
 }
 
 RecipeCheckbox.propTypes = {
+  validateCheckBoxes: PropTypes.func.isRequired,
   element: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
+  pathname: PropTypes.string.isRequired,
 };
 
 export default RecipeCheckbox;

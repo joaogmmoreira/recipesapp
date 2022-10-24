@@ -29,7 +29,7 @@ class Login extends React.Component {
     localStorage.setItem('mealsToken', '1');
     localStorage.setItem('cocktailsToken', '1');
 
-    history.push('/foods');
+    history.push('/recipesapp/foods');
   }
 
   handleButton = () => {

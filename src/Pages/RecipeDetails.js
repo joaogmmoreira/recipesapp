@@ -24,11 +24,11 @@ class RecipeDetails extends Component {
     const { location: { pathname } } = this.props;
 
     if (pathname.includes('drinks')) {
-      history.push(`/drinks/${id}/in-progress`);
+      history.push(`/recipesapp/drinks/${id}/in-progress`);
     }
 
     if (pathname.includes('foods')) {
-      history.push(`/foods/${id}/in-progress`);
+      history.push(`/recipesapp/foods/${id}/in-progress`);
     }
   }
 

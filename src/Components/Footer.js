@@ -8,10 +8,10 @@ import '../Style/Footer.css';
 function Footer() {
   const history = useHistory();
   const drinkPath = () => {
-    history.push('/drinks');
+    history.push('/recipesapp/drinks');
   };
   const foodPath = () => {
-    history.push('/foods');
+    history.push('/recipesapp/foods');
   };
   return (
     <footer data-testid="footer" className="footer">

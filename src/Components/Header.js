@@ -36,7 +36,7 @@ class Header extends Component {
     );
     return (
       <header>
-        <Link to="/profile">
+        <Link to="/recipesapp/profile">
           <img
             src={ profileIcon }
             data-testid="profile-top-btn"

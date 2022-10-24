@@ -111,7 +111,9 @@ class DetailsComponent extends Component {
       <Link
         data-testid={ `${index}-recomendation-card` }
         key={ isFood ? recInfo.idDrink : recInfo.idMeal }
-        to={ isFood ? `/drinks/${recInfo.idDrink}` : `/foods/${recInfo.idMeal}` }
+        to={ isFood
+          ? `/recipesapp/drinks/${recInfo.idDrink}`
+          : `/recipesapp/foods/${recInfo.idMeal}` }
         onClick={ changeUnmount }
       >
         <div className="recomendation">

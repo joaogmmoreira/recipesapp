@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import ButtonShare2 from '../Components/ButtonShare2';
 import Header from '../Components/Header';
-// import PropTypes from 'prop-types';
-// import Header from '../Components/Header';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 class FavoriteRecipes extends React.Component {
   constructor() {
@@ -22,38 +22,46 @@ class FavoriteRecipes extends React.Component {
   };
 
   stateRecipesFavorite = () => {
-    const ae = localStorage.getItem('favoriteRecipes');
-    const favoriteRecipes = JSON.parse(ae);
-    this.setState = {
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    this.setState({
       favoriteRecipes,
-    };
+    });
   }
 
-  filterFoods = () => {
-    const favoriteRecipes = localStorage.getItem('favoriteRecipes');
-    const recipesFoods = favoriteRecipes.filter((recipe) => recipe.type === 'foods');
-    this.setState = {
-      favoriteRecipes: recipesFoods,
-    };
-  };
+  // filterFoods = () => {
+  //   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  //   const recipesFoods = favoriteRecipes.filter((recipe) => recipe.type === 'food');
+  //   this.setState({
+  //     favoriteRecipes: recipesFoods,
+  //   });
+  // };
 
-  filterDrinks = () => {
-    const favoriteRecipes = localStorage.getItem('favoriteRecipes');
-    const recipesDrinks = favoriteRecipes.filter((recipe) => recipe.type === 'drinks');
-    this.setState = {
-      favoriteRecipes: recipesDrinks,
-    };
-  };
+  // filterDrinks = () => {
+  //   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  //   const recipesDrinks = favoriteRecipes.filter((recipe) => recipe.type === 'drink');
+  //   this.setState({
+  //     favoriteRecipes: recipesDrinks,
+  //   });
+  // };
+
+  handleRemoveFavoriteRecipes = (recipe) => {
+    const getStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const getcorrect = getStorage
+      .find((inObj) => inObj.id === recipe.id);
+    const updatedFavRecipes = getStorage
+      .filter((inObj) => inObj.id !== getcorrect.id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavRecipes));
+    this.stateRecipesFavorite();
+  }
 
   render() {
     const { favoriteRecipes } = this.state;
-    // const { id } = JSON.parse(favoriteRecipes);
 
     return (
       <>
         <Header renderOnScreen={ false } title="Favorite Recipes" history={ {} } url="" />
         <div>
-          <button
+          {/* <button
             type="button"
             data-testid="filter-by-all-btn"
             onClick={ this.filterAll }
@@ -73,14 +81,15 @@ class FavoriteRecipes extends React.Component {
             onClick={ this.filterDrinks }
           >
             Drinks
-          </button>
-          {
-            favoriteRecipes.map((recipe, index) => {
+          </button> */}
+          { !favoriteRecipes ? <p>Sem receitas favoritas...</p>
+            : favoriteRecipes.map((recipe, index) => {
               const { id, type, nationality, category,
                 alcoholicOrNot, name, image } = recipe;
+
               return (
                 <div key={ id }>
-                  <Link to={ `/${type}/${id}` }>
+                  <Link to={ `recipesapp/${type}s/${id}` }>
                     <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
                     <img
                       src={ image }
@@ -89,31 +98,36 @@ class FavoriteRecipes extends React.Component {
                     />
                   </Link>
                   {
-                    type === 'foods' ? (
-                      <div>
-                        <p data-testid={ `${index}-horizontal-top-text` }>{ category }</p>
-                        <p>{ nationality }</p>
-                      </div>
-                    ) : <p>{ alcoholicOrNot }</p>
+                    type === 'food' ? (
+                      <p data-testid={ `${index}-horizontal-top-text` }>
+                        { `${nationality} - ${category}` }
+                      </p>
+                    ) : (
+                      <p data-testid={ `${index}-horizontal-top-text` }>
+                        { alcoholicOrNot }
+                      </p>
+                    )
                   }
-                  <button type="button" data-testid={ `${index}-horizontal-share-btn` }>
-                    Compartilhar
-                  </button>
-                  <button type="button">
-                    desfavoritar
+                  <ButtonShare2 index={ index } type={ type } id={ id } />
+                  <button
+                    type="button"
+                    onClick={ () => this.handleRemoveFavoriteRecipes(recipe) }
+                    data-testid={ `${index}-horizontal-favorite-btn` }
+                    src={ blackHeartIcon }
+                  >
+                    <img
+                      src={ blackHeartIcon }
+                      alt="whiteHeartIcon"
+                      className="img-fav"
+                    />
                   </button>
                 </div>
               );
-            })
-          }
+            }) }
         </div>
       </>
     );
   }
 }
-
-// FavoriteRecipes.propTypes = {
-//   history: PropTypes.objectOf(PropTypes.any).isRequired,
-// };
 
 export default connect(null, null)(FavoriteRecipes);

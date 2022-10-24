@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import fetchDrinkObject from '../services/FetchDrinkAPI';
+import fetchDrinkObject from '../services/fetchDrinkAPI';
 import fetchFoodsObject from '../services/fetchFoodAPIs';
 import checkLength from '../services/checkLength';
 import { saveSearchAction } from '../redux/actions';

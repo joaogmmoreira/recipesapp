@@ -3,12 +3,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Loading from '../Components/Loading';
 import RecipeCheckbox from '../Components/RecipeCheckbox';
+import ShareFavBtn from '../Components/ShareFavBtn';
+import fetchDrinkObject from '../services/fetchDrinkAPI';
 import fetchFoodsObject from '../services/fetchFoodAPIs';
 
 class RecipeInProgress extends React.Component {
   constructor() {
     super();
     this.state = {
+      isFood: true,
+      infoObj: {},
       recipeName: '',
       recipeImage: '',
       recipeCategory: '',
@@ -16,26 +20,13 @@ class RecipeInProgress extends React.Component {
       recipeIngredients: [],
       recipeMeasures: [],
       isLoading: true,
+      checkboxesValidation: true,
     };
   }
 
   componentDidMount() {
     this.getRecipeById();
   }
-
-  fetchDrinksById = async (id) => {
-    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
-    const json = await response.json();
-
-    return json;
-  }
-
-  // fetchFoodsById = async (id) => {
-  //   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-  //   const json = await response.json();
-
-  //   return json;
-  // }
 
   saveRecipeIngredientsAndMeasures = (obj) => {
     const array = Object.entries(obj[0]);
@@ -62,117 +53,183 @@ class RecipeInProgress extends React.Component {
     const { location: { pathname } } = this.props;
 
     const pathnameArray = pathname.split('/');
-    const pathnameId = pathnameArray[2];
+    const pathnameId = pathnameArray[3];
 
     if (pathname.includes('drinks')) {
-      const recipeData = await this.fetchDrinksById(pathnameId);
+      const recipeData = await fetchDrinkObject.fetchDrinksById(pathnameId);
 
       const data = recipeData.drinks[0];
-      this.setState({
+      this.setState(() => ({
+        isFood: false,
+        infoObj: data,
         recipeName: data.strDrink,
         recipeImage: data.strDrinkThumb,
         recipeCategory: data.strCategory,
         recipeInstructions: data.strInstructions,
+      }), () => {
+        this.saveRecipeIngredientsAndMeasures(recipeData.drinks);
+        this.validateCheckBoxes();
+        this.setState({
+          isLoading: false,
+        });
       });
-      this.saveRecipeIngredientsAndMeasures(recipeData.drinks);
     }
 
     if (pathname.includes('foods')) {
       const recipeData = await fetchFoodsObject.fetchFoodsById(pathnameId);
 
       const data = recipeData.meals[0];
-      this.setState({
+      this.setState(() => ({
+        isFood: true,
+        infoObj: data,
         recipeName: data.strMeal,
         recipeImage: data.strMealThumb,
         recipeCategory: data.strCategory,
         recipeInstructions: data.strInstructions,
+      }), () => {
+        this.saveRecipeIngredientsAndMeasures(recipeData.meals);
+        this.validateCheckBoxes();
+        this.setState({
+          isLoading: false,
+        });
       });
-      this.saveRecipeIngredientsAndMeasures(recipeData.meals);
     }
-    this.setState({
-      isLoading: false,
-    });
   }
 
   renderRecipeIngredients = () => {
-    const { recipeIngredients } = this.state;
+    const { recipeIngredients, recipeMeasures } = this.state;
     const { location: { pathname } } = this.props;
     const pathnameArray = pathname.split('/');
-    const pathnameId = pathnameArray[2];
+    const pathnameId = pathnameArray[3];
 
     return recipeIngredients.map((element, index) => (
-      <div key={ `${element}-${index}` }>
+      <div key={ `${element}-${index}` } className="ingredients-recipe">
         <RecipeCheckbox
-          element={ element }
+          element={ `${element} ${recipeMeasures[index]}` }
           index={ index }
           id={ pathnameId }
           pathname={ pathname }
+          recipeMeasures={ recipeMeasures }
+          validateCheckBoxes={ this.validateCheckBoxes }
         />
       </div>
     ));
   }
 
-  // validateCheckBoxes = () => {
-  //   const checkboxes = document.querySelectorAll('.done');
-  //   console.log(checkboxes);
-  // }
+  validateCheckBoxes = () => {
+    const allCheckBoxes = document.querySelectorAll('input[type=checkbox]');
+    const markedCheckboxes = document.getElementsByClassName('checked');
+    // console.log(allCheckBoxes);
+    // console.log(markedCheckboxes);
+    // console.log(this.state);
+    if (markedCheckboxes.length === allCheckBoxes.length
+      && markedCheckboxes.length && allCheckBoxes.length) {
+      this.setState({
+        checkboxesValidation: false,
+      });
+    } else {
+      this.setState({
+        checkboxesValidation: true,
+      });
+    }
+  }
+
+  registerDoneRecipes = () => {
+    const { recipeImage, recipeName } = this.state;
+    const { history } = this.props;
+    const { location: { pathname } } = this.props;
+    const pathnameArray = pathname.split('/');
+    const pathnameId = pathnameArray[3];
+    const changePath = history.push('/recipesapp/done-recipes');
+    const storageFormat = {
+      id: pathnameId,
+      image: recipeImage,
+      name: recipeName,
+    };
+
+    if (!JSON.parse(localStorage.getItem('doneRecipes'))) {
+      return localStorage
+        .setItem('doneRecipes', JSON
+          .stringify([storageFormat]));
+    }
+
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    console.log(doneRecipes);
+    const isThereRecipe = doneRecipes.some((recipe) => recipe.id === pathnameId);
+    console.log(isThereRecipe);
+
+    if (isThereRecipe) {
+      return changePath;
+    }
+
+    if (!isThereRecipe) {
+      const registerRecipe = [...doneRecipes, storageFormat];
+      localStorage.setItem('doneRecipes', JSON.stringify(registerRecipe));
+      return changePath;
+    }
+    return changePath;
+  }
 
   render() {
     const {
+      isFood,
+      infoObj,
       recipeName,
       recipeImage,
       recipeCategory,
       recipeInstructions,
       isLoading,
+      checkboxesValidation,
     } = this.state;
 
-    return (
+    const RecipeProgress = (
       <div>
-        {
-          isLoading && <Loading />
-        }
         <img
           src={ recipeImage }
           alt={ recipeName }
           data-testid="recipe-photo"
+          className="recipe-detail-img"
         />
-        <div>
+        <div className="recipe-details-header">
           <h2 data-testid="recipe-title">{ recipeName }</h2>
+          <div className="btn-share-fav">
+            <ShareFavBtn infoObj={ infoObj } isFood={ isFood } />
+          </div>
         </div>
         <div>
-          <button
-            type="button"
-            data-testid="share-btn"
-          >
-            Compartilhar
-          </button>
-        </div>
-        <div>
-          <button
-            type="button"
-            data-testid="favorite-btn"
-          >
-            Favoritar
-          </button>
-        </div>
-        <div>
-          <p data-testid="recipe-category">
+          <h3 data-testid="recipe-category">
             { recipeCategory }
-          </p>
+          </h3>
         </div>
-        { this.renderRecipeIngredients() }
-        <div>
+        <div className="instructions">
+          <h2>Ingredients</h2>
+          { this.renderRecipeIngredients() }
+        </div>
+        <div className="instructions">
+          <h2>Instructions</h2>
           <p data-testid="instructions">{ recipeInstructions }</p>
         </div>
         <div>
           <button
             type="button"
             data-testid="finish-recipe-btn"
-            onClick={ () => this.validateCheckBoxes() }
+            disabled={ checkboxesValidation }
+            onClick={ () => {
+              this.registerDoneRecipes();
+            } }
+            className="done-recipe"
           >
             Finalizar
           </button>
         </div>
+      </div>
+    );
+
+    return (
+      <div>
+        {
+          isLoading ? <Loading /> : RecipeProgress
+        }
       </div>
     );
   }

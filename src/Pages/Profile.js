@@ -7,18 +7,18 @@ import Footer from '../Components/Footer';
 class Profile extends React.Component {
   getRecipes = () => {
     const { history } = this.props;
-    history.push('/done-recipes');
+    history.push('/recipesapp/done-recipes');
   };
 
   getFavoriteRecipes = () => {
     const { history } = this.props;
-    history.push('/favorite-recipes');
+    history.push('/recipesapp/favorite-recipes');
   };
 
   logout = () => {
     const { history } = this.props;
     localStorage.clear();
-    history.push('/');
+    history.push('/recipesapp');
   };
 
   render() {
@@ -37,13 +37,13 @@ class Profile extends React.Component {
           >
             Done Recipes
           </button>
-          <button
+          {/* <button
             type="button"
             data-testid="profile-favorite-btn"
             onClick={ this.getFavoriteRecipes }
           >
             Favorite Recipes
-          </button>
+          </button> */}
           <button
             type="button"
             data-testid="profile-logout-btn"
