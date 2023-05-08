@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://joaogmmoreira.github.io/recipesapp",
   "engines": {
-    "node": "16"
+    "node": "18"
   },
   "dependencies": {
     "bootstrap": "^4.5.3",
