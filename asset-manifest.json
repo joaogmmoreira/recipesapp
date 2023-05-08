@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/recipesapp/static/css/main.68572c3e.css",
-    "main.js": "/recipesapp/static/js/main.7063b54c.js",
+    "main.js": "/recipesapp/static/js/main.debfd014.js",
     "static/media/logo1.png": "/recipesapp/static/media/logo1.14709e9d040b2ee8188e.png",
-    "static/media/mealIcon.svg": "/recipesapp/static/media/mealIcon.40029e7f1422ba5a1bf1c10fa4f59030.svg",
-    "static/media/shareIcon.svg": "/recipesapp/static/media/shareIcon.87def1bd1dff9af9263f046c3b9bd31a.svg",
-    "static/media/profileIcon.svg": "/recipesapp/static/media/profileIcon.44eb3608f431845fe2fc2d2a23d758ae.svg",
-    "static/media/whiteHeartIcon.svg": "/recipesapp/static/media/whiteHeartIcon.2b822118952dc5140129c6349fcd0472.svg",
-    "static/media/searchIcon.svg": "/recipesapp/static/media/searchIcon.7353564d025de989f86f66ecb0202a04.svg",
-    "static/media/blackHeartIcon.svg": "/recipesapp/static/media/blackHeartIcon.083cb006913d197c95857ebfa2161db7.svg",
-    "static/media/drinkIcon.svg": "/recipesapp/static/media/drinkIcon.efc0d3c156e5da73e44a826c8d67b142.svg",
+    "static/media/mealIcon.svg": "/recipesapp/static/media/mealIcon.93ccfec969f850b76b23d712c5364a37.svg",
+    "static/media/shareIcon.svg": "/recipesapp/static/media/shareIcon.0162aa71578ef591eb531dcb30801f1f.svg",
+    "static/media/profileIcon.svg": "/recipesapp/static/media/profileIcon.27392b79560b07e515b2115585e4fc34.svg",
+    "static/media/whiteHeartIcon.svg": "/recipesapp/static/media/whiteHeartIcon.6690d94e688d445712c855c7ded7389b.svg",
+    "static/media/searchIcon.svg": "/recipesapp/static/media/searchIcon.361eec656b197de33ae9ee000c69601a.svg",
+    "static/media/blackHeartIcon.svg": "/recipesapp/static/media/blackHeartIcon.f4563148a53687f9befe2ce741dfdedb.svg",
+    "static/media/drinkIcon.svg": "/recipesapp/static/media/drinkIcon.1893b8edb4ab2acd4419bcc4046f84b9.svg",
     "index.html": "/recipesapp/index.html",
     "main.68572c3e.css.map": "/recipesapp/static/css/main.68572c3e.css.map",
-    "main.7063b54c.js.map": "/recipesapp/static/js/main.7063b54c.js.map"
+    "main.debfd014.js.map": "/recipesapp/static/js/main.debfd014.js.map"
   },
   "entrypoints": [
     "static/css/main.68572c3e.css",
-    "static/js/main.7063b54c.js"
+    "static/js/main.debfd014.js"
   ]
 }
