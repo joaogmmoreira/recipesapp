@@ -76,5 +76,5 @@ This project is currently not under any license
 
 ## Contact Information
 
-    [WebPage](https://www.joaomoreira.net/)
-    [Linkedin](https://www.linkedin.com/in/joao-moreira-dev/)
+[WebPage](https://www.joaomoreira.net/)
+[Linkedin](https://www.linkedin.com/in/joao-moreira-dev/)
