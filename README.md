@@ -49,15 +49,20 @@ This will start the development server, and you should be able to see the projec
 
 Once you have the project running, you can use it as follows:
 
-1. **Login**: Open your web browser and navigate to `http://localhost:3000`. You should see a login page. Enter your name and email to login.
+1. **Login**
+   Open your web browser and navigate to `http://localhost:3000`. You should see a login page. Enter your name and email to login.
 
-2. **Browse Recipes**: After logging in, you'll be taken to the recipes page. Here you can browse through a list of food or drink recipes.
+2. **Browse Recipes**
+   After logging in, you'll be taken to the recipes page. Here you can browse through a list of food or drink recipes.
 
-3. **View Recipe Details**: Click on a recipe to view its details. This includes the ingredients, instructions, and a video tutorial.
+3. **View Recipe Details**
+   Click on a recipe to view its details. This includes the ingredients, instructions, and a video tutorial.
 
-4. **Track Your Recipes**: You can mark recipes as favorites or as completed. To do this, navigate to the recipe details page and click on the corresponding button.
+4. **Track Your Recipes**
+   You can mark recipes as favorites or as completed. To do this, navigate to the recipe details page and click on the corresponding button.
 
-5. **View Your Profile**: Click on the profile icon in the top right corner to view your profile. Here you can see your favorite and completed recipes.
+5. **View Your Profile**  
+   Click on the profile icon in the top right corner to view your profile. Here you can see your favorite and completed recipes.
 
 Remember, this is a development server, so changes you make will not persist after the server is stopped.
 
