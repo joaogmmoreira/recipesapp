@@ -1,6 +1,6 @@
 # Recipes App
 
-This is a React application that allows users to browse, view details, and track their favorite and completed recipes.
+This is a React application that allows users to browse, view details, and track their favorite and completed recipes. The app uses a recipe API to fetch the recipe data.
 
 ## Features
 
@@ -47,24 +47,29 @@ This will start the development server, and you should be able to see the projec
 
 ## Usage
 
-Provide instructions about how to use your project. Include code examples if applicable.
+Once you have the project running, you can use it as follows:
+
+1. **Login**: Open your web browser and navigate to `http://localhost:3000`. You should see a login page. Enter your name and email to login.
+
+2. **Browse Recipes**: After logging in, you'll be taken to the recipes page. Here you can browse through a list of food or drink recipes.
+
+3. **View Recipe Details**: Click on a recipe to view its details. This includes the ingredients, instructions, and a video tutorial.
+
+4. **Track Your Recipes**: You can mark recipes as favorites or as completed. To do this, navigate to the recipe details page and click on the corresponding button.
+
+5. **View Your Profile**: Click on the profile icon in the top right corner to view your profile. Here you can see your favorite and completed recipes.
+
+Remember, this is a development server, so changes you make will not persist after the server is stopped.
 
 ## Contributing
 
-Details about how others can contribute to your project.
+This project was created for study purposes and is not currently accepting contributions. However, you're welcome to fork the repository and make changes for your own purposes. If you have any questions or feedback, feel free to open an issue.
 
 ## License
 
-Information about the license.
-
-## Acknowledgements
-
-Give credit to collaborators or third-party assets you used.
+This project is currently not under any license
 
 ## Contact Information
 
-Your contact information so others can reach out to you for questions or contributions.
-
-```
-
-```
+[Linkedin](https://www.linkedin.com/in/joao-moreira-dev/)
+[Portfolio](https://www.joaomoreira.net/)
