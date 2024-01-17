@@ -26,23 +26,21 @@ git clone https://github.com/joaogmmoreira/recipesapp.git
 
 2. **Navigate to the project directory**
 
-Change your current directory to the project's directory:
-`cd recipesapp`
+   Change your current directory to the project's directory:
+   `cd recipesapp`
 
 3. **Install Node.js**
-
-This project requires Node.js. If you don't have Node.js installed, you can download and install it from the official website.
+   This project requires Node.js. If you don't have Node.js installed, you can download and install it from the official website.
 
 4. **Install the dependencies**
    Next, you'll need to install the project's dependencies. You can do this with the following command:
    `npm install`
 
-5. **Start the project**
+5. **Start the project**  
+   Now you're ready to start the project! You can do this with the following command:
+   `npm start`
 
-Now you're ready to start the project! You can do this with the following command:
-`npm start`
-
-This will start the development server, and you should be able to see the project running at http://localhost:3000.
+This will start the development server, and you should be able to see the project running at `http://localhost:3000.`
 
 ## Usage
 
