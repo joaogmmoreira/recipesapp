@@ -34,9 +34,8 @@ Change your current directory to the project's directory:
 This project requires Node.js. If you don't have Node.js installed, you can download and install it from the official website.
 
 4. **Install the dependencies**
+   Next, you'll need to install the project's dependencies. You can do this with the following command:
    `npm install`
-
-Next, you'll need to install the project's dependencies. You can do this with the following command:
 
 5. **Start the project**
 
